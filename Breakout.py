@@ -53,7 +53,7 @@ class Brick:
             screen (pygame.Surface): The surface to draw the brick on.
         """
         pygame.draw.rect(screen, self.color, self.rect)
-        pygame.display.set_caption('Andreas Breakout')
+        pygame.display.set_caption('Breakout')
 class Ball:
     def __init__(self, x, y):
         """Initialize the Ball class.
