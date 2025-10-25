@@ -19,7 +19,7 @@ class Paddle:
         Args:
             screen (pygame.Surface): The surface to draw the paddle on.
         """
-        pygame.draw.rect(screen, (0, 0, 0), self.rect)
+        pygame.draw.rect(screen, (255,255,255), self.rect)
 
     def move(self, speed):
         """Move the paddle based on user input.
@@ -78,7 +78,7 @@ class Ball:
         Args:
             screen (pygame.Surface): The surface to draw the ball on.
         """
-        pygame.draw.rect(screen, (0, 0, 0), self.rect)
+        pygame.draw.rect(screen, (255,255,255), self.rect)
 
     def move(self, speed):
         """Move the ball based on its current direction and speed.
@@ -144,7 +144,7 @@ class BreakoutGame:
             text (str): The text to display.
             pos (tuple): The position (x, y) to display the text.
         """
-        surface = self.font.render(text, True, (0, 0, 0))
+        surface = self.font.render(text, True, (255,255,255))
         rect = surface.get_rect(center=pos)
         self.screen.blit(surface, rect)
 
@@ -162,7 +162,7 @@ class BreakoutGame:
                 self.ball.dx = 0
                 self.ball.dy = 0
                 self.draw_text("Gratulerar! Du Vann!", (self.screen.get_width() / 2, self.height / 2))
-                self.draw_text("Press any key to start a new game", (self.screen.get_width() / 2, self.height / 2 + 50))
+                self.draw_text("Tryck på någo knapp för att starta", (self.screen.get_width() / 2, self.height / 2 + 50))
 
                 pygame.display.flip()
                 # Wait for player to press any key
@@ -205,5 +205,4 @@ class BreakoutGame:
             self.clock.tick(60)
 
 if __name__ == "__main__":
-    breakout = BreakoutGame()
-    breakout.run_game()
+    from Main import main_menu
