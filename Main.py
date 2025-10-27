@@ -4,7 +4,7 @@ from Breakout import BreakoutGame
 
 pygame.init()
 
-SCREEN = pygame.display.set_mode((1280, 720))
+SCREEN = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Breakout")
 
 BG = pygame.image.load("assets/Background.png")
@@ -28,11 +28,11 @@ def options():
 
         SCREEN.fill("white")
 
-        OPTIONS_TEXT = get_font(45).render("This is the OPTIONS screen.", True, "Black")
-        OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 260))
+        OPTIONS_TEXT = get_font(45).render("OPTIONS screen.", True, "Black")
+        OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(440, 100))
         SCREEN.blit(OPTIONS_TEXT, OPTIONS_RECT)
 
-        OPTIONS_BACK = Button(image=None, pos=(640, 460), 
+        OPTIONS_BACK = Button(image=None, pos=(440, 460), 
                             text_input="BACK", font=get_font(75), base_color="Black", hovering_color="Green")
 
         OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
@@ -55,13 +55,13 @@ def main_menu():
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
         MENU_TEXT = get_font(100).render("Breakout", True, "#b68f40")
-        MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
+        MENU_RECT = MENU_TEXT.get_rect(center=(410, 100))
 
-        PLAY_BUTTON = Button(image=pygame.image.load("assets/play_button.png"), pos=(640, 250), 
+        PLAY_BUTTON = Button(image=pygame.image.load("assets/play_button.png"), pos=(440, 250), 
                             text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-        OPTIONS_BUTTON = Button(image=pygame.image.load("assets/options_button.png"), pos=(640, 400), 
+        OPTIONS_BUTTON = Button(image=pygame.image.load("assets/options_button.png"), pos=(440, 400), 
                             text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-        QUIT_BUTTON = Button(image=pygame.image.load("assets/exit_button.png"), pos=(640, 550), 
+        QUIT_BUTTON = Button(image=pygame.image.load("assets/exit_button.png"), pos=(440, 550), 
                             text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
