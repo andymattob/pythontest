@@ -1,18 +1,19 @@
 import pygame, sys
 from Button import Button
 from Breakout import BreakoutGame
+from tictactoe import run_Game, TicTacToeGame
 
 pygame.init()
 
 SCREEN = pygame.display.set_mode((800, 600))
-pygame.display.set_caption("Breakout")
+pygame.display.set_caption("Game Menu")
 
 BG = pygame.image.load("assets/Background.png")
 
 def get_font(size): # Returns Press-Start-2P in the desired size
     return pygame.font.Font("assets/font.ttf", size)
 
-def play():
+def breakout_game():
     pygame.init()
     
     BreaKout = BreakoutGame()  
@@ -22,31 +23,13 @@ def play():
     pygame.quit()
     
     
-def options():
-    while True:
-        OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
-
-        SCREEN.fill("white")
-
-        OPTIONS_TEXT = get_font(45).render("OPTIONS screen.", True, "Black")
-        OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(440, 100))
-        SCREEN.blit(OPTIONS_TEXT, OPTIONS_RECT)
-
-        OPTIONS_BACK = Button(image=None, pos=(440, 460), 
-                            text_input="BACK", font=get_font(75), base_color="Black", hovering_color="Green")
-
-        OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
-        OPTIONS_BACK.update(SCREEN)
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
-                    main_menu()
-
-        pygame.display.update()
+def tictactoe_game():
+    pygame.init()
+    
+    TicTacToeGame = run_Game()
+    TicTacToeGame.run_game()
+    
+    pygame.quit()
 
 def main_menu():
     while True:
@@ -54,19 +37,19 @@ def main_menu():
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        MENU_TEXT = get_font(100).render("Breakout", True, "#b68f40")
-        MENU_RECT = MENU_TEXT.get_rect(center=(410, 100))
+        MENU_TEXT = get_font(100).render("GameMenu", True, "#b68f40")
+        MENU_RECT = MENU_TEXT.get_rect(center=(400, 90))
 
-        PLAY_BUTTON = Button(image=pygame.image.load("assets/play_button.png"), pos=(440, 250), 
+        BREAKOUT_BUTTON = Button(image=pygame.image.load("assets/start_breakout_button.png"), pos=(140, 250), 
                             text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-        OPTIONS_BUTTON = Button(image=pygame.image.load("assets/options_button.png"), pos=(440, 400), 
+        TICTACTOE_BUTTON = Button(image=pygame.image.load("assets/start_tictactoe_button.png"), pos=(350, 250), 
                             text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         QUIT_BUTTON = Button(image=pygame.image.load("assets/exit_button.png"), pos=(440, 550), 
                             text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 
-        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
+        for button in [BREAKOUT_BUTTON, TICTACTOE_BUTTON, QUIT_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(SCREEN)
         
@@ -75,10 +58,10 @@ def main_menu():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    play()
-                if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    options()
+                if BREAKOUT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    breakout_game()
+                if TICTACTOE_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    tictactoe_game()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
                     sys.exit()
