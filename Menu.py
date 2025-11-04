@@ -1,14 +1,15 @@
 import pygame, sys
 from Button import Button
-from Breakout import BreakoutGame
-from tictactoe import run_Game, TicTacToeGame
+from games. Breakout import BreakoutGame
+from games. tictactoe import run_Game, TicTacToeGame
+
 
 pygame.init()
 
 SCREEN = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Game Menu")
 
-BG = pygame.image.load("assets/Background.png")
+BG = pygame.image.load("games/images/Background.png")
 
 def get_font(size): # Returns Press-Start-2P in the desired size
     return pygame.font.Font("assets/font.ttf", size)
@@ -31,6 +32,14 @@ def tictactoe_game():
     
     pygame.quit()
 
+def space_shooter_game():
+    pygame.init()
+    
+    space_shooter_Game = run_Game()
+    space_shooter_Game.run_game()
+    
+    pygame.quit()
+    
 def main_menu():
     while True:
         SCREEN.blit(BG, (0, 0))
@@ -44,12 +53,14 @@ def main_menu():
                             text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         TICTACTOE_BUTTON = Button(image=pygame.image.load("assets/start_tictactoe_button.png"), pos=(350, 250), 
                             text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        SPACE_SHOOTER_BUTTON = Button(image=pygame.image.load("assets/start_tetris_button.png"), pos=(560, 250), 
+                            text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         QUIT_BUTTON = Button(image=pygame.image.load("assets/exit_button.png"), pos=(440, 550), 
                             text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 
-        for button in [BREAKOUT_BUTTON, TICTACTOE_BUTTON, QUIT_BUTTON]:
+        for button in [BREAKOUT_BUTTON, TICTACTOE_BUTTON, SPACE_SHOOTER_BUTTON, QUIT_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(SCREEN)
         
@@ -62,6 +73,8 @@ def main_menu():
                     breakout_game()
                 if TICTACTOE_BUTTON.checkForInput(MENU_MOUSE_POS):
                     tictactoe_game()
+                if SPACE_SHOOTER_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    space_shooter_game()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
                     sys.exit()

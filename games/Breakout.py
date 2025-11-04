@@ -76,17 +76,17 @@ class BreakoutGame:
         self.lives = 3
 
         # 🖼️ Ladda bilder
-        self.bg_image = pygame.image.load("assets/background.png").convert()
-        self.brick_image = pygame.image.load("assets/brick.png").convert()
-        self.ball_image = pygame.image.load("assets/ball.png").convert_alpha()
-        self.paddle_image = pygame.image.load("assets/paddle.png").convert_alpha()
+        self.bg_image = pygame.image.load("games/images/background.png").convert()
+        self.brick_image = pygame.image.load("games/images/brick.png").convert()
+        self.ball_image = pygame.image.load("games/images/ball.png").convert_alpha()
+        self.paddle_image = pygame.image.load("games/images/paddle.png").convert_alpha()
 
         # 🔊 Ladda ljud
         self.sounds = {
-            "bounce": pygame.mixer.Sound("assets/bounce.wav"),
-            "brick_hit": pygame.mixer.Sound("assets/brick_hit.wav"),
-            "lose_life": pygame.mixer.Sound("assets/lose_life.wav"),
-            "win": pygame.mixer.Sound("assets/win.wav")
+            "bounce": pygame.mixer.Sound("games/Sounds/bounce.wav"),
+            "brick_hit": pygame.mixer.Sound("games/Sounds/brick_hit.wav"),
+            "lose_life": pygame.mixer.Sound("games/Sounds/lose_life.wav"),
+            "win": pygame.mixer.Sound("games/Sounds/win.wav")
         }
 
         # 🧱 Skapa objekt
@@ -167,4 +167,4 @@ class BreakoutGame:
             self.clock.tick(60)
 
 if __name__ == "__main__":
-    from Main import main_menu
+    from Menu import main_menu
