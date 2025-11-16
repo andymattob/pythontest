@@ -1,0 +1,113 @@
+import pygame, sys
+from Button import Button
+
+
+pygame.init()
+
+SCREEN = pygame.display.set_mode((1280, 720))
+pygame.display.set_caption("Minecraft Java Edition")
+
+BG = pygame.image.load("assets/minecraftBackground.jpg")
+
+def get_font(size): # Returns Press-Start-2P in the desired size
+    return pygame.font.Font("assets/font.ttf", size)
+
+def singleplayer_game():
+    pygame.init()
+    
+      
+
+   
+    pygame.quit()
+    
+    
+def multiplayer_game():
+    pygame.init()
+    
+    
+    
+    pygame.quit()
+
+def realm_game():
+    pygame.init()
+    
+
+    
+    pygame.quit()
+
+def accessiblility_game():
+    pygame.init()
+    
+ 
+    
+    pygame.quit()
+    
+def language_game():
+    pygame.init()
+    
+    
+    pygame.quit()
+
+def options_game():
+    pygame.init()
+    
+ 
+    
+    pygame.quit()
+    
+def main_menu():
+    while True:
+        SCREEN.blit(BG, (0, 0))
+
+        MENU_MOUSE_POS = pygame.mouse.get_pos()
+
+        MENU_IMAGE = Button(image=pygame.image.load("assets/minceraft.png"), pos=(600, 140),
+                           text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        JAVA_IMAGE  = Button(image=pygame.image.load("assets/edition.png"), pos=(650, 230),
+                           text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        SINGLEPLAYER_BUTTON = Button(image=pygame.image.load("assets/SinglePlayerJavaButton.png"), pos=(640, 280), 
+                            text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        MULTIPLAYER_BUTTON = Button(image=pygame.image.load("assets/MultiPlayerJavaButton.png"), pos=(640, 303), 
+                            text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        REALM_BUTTON = Button(image=pygame.image.load("assets/MinecraftRealmsJavaButton.png"), pos=(640, 325), 
+                            text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        OPTIONS_BUTTON = Button(image=pygame.image.load("assets/OptionsJavaButton.png"), pos=(590, 348), 
+                            text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        QUIT_BUTTON = Button(image=pygame.image.load("assets/QuitGameJavaButton.png"), pos=(690, 348), 
+                            text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        ACCESSIBILITY_BUTTON = Button(image=pygame.image.load("assets/AccessibilityButton.png"), pos=(752, 348), 
+                            text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+        LANGUAGE_BUTTON = Button(image=pygame.image.load("assets/LanguageButton.png"), pos=(528, 348), 
+                            text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+
+        SCREEN.blit(MENU_IMAGE.image, MENU_IMAGE.rect)
+        SCREEN.blit(JAVA_IMAGE.image, JAVA_IMAGE.rect)
+        
+        for button in [SINGLEPLAYER_BUTTON, MULTIPLAYER_BUTTON, REALM_BUTTON, ACCESSIBILITY_BUTTON, LANGUAGE_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
+            button.changeColor(MENU_MOUSE_POS)
+            button.update(SCREEN)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if SINGLEPLAYER_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    singleplayer_game()
+                if MULTIPLAYER_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    multiplayer_game()
+                if REALM_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    realm_game()
+                if ACCESSIBILITY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    accessiblility_game()
+                if LANGUAGE_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    language_game()
+                if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    options_game()
+                if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    pygame.quit()
+                    sys.exit()
+
+        pygame.display.update()
+
+main_menu()
