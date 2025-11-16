@@ -6,8 +6,10 @@ pygame.init()
 title_font = pygame.font.Font(None, 60)
 score_font = pygame.font.Font(None, 40)
 
-GREEN = (173, 204, 96)
-DARK_GREEN = (43, 51, 24)
+YELLOW = (216, 235, 52)
+WHITE = (255, 255, 255)
+GREEN = (0, 255, 0)
+BLACK = (0, 0, 0)
 
 cell_size = 30
 number_of_cells = 25
@@ -45,7 +47,7 @@ class Snake:
 	def draw(self):
 		for segment in self.body:
 			segment_rect = (OFFSET + segment.x * cell_size, OFFSET+ segment.y * cell_size, cell_size, cell_size)
-			pygame.draw.rect(screen, DARK_GREEN, segment_rect, 0, 7)
+			pygame.draw.rect(screen, GREEN, segment_rect, 0, 7)
 
 	def update(self):
 		self.body.insert(0, self.body[0] + self.direction)
@@ -103,7 +105,7 @@ class Game:
 
 screen = pygame.display.set_mode((2*OFFSET + cell_size*number_of_cells, 2*OFFSET + cell_size*number_of_cells))
 
-pygame.display.set_caption("Retro Snake")
+pygame.display.set_caption("Green Snake")
 
 clock = pygame.time.Clock()
 
@@ -134,12 +136,12 @@ while True:
 				game.snake.direction = Vector2(1, 0)
 
 	#Drawing
-	screen.fill(GREEN)
-	pygame.draw.rect(screen, DARK_GREEN, 
+	screen.fill(YELLOW)
+	pygame.draw.rect(screen, WHITE, 
 		(OFFSET-5, OFFSET-5, cell_size*number_of_cells+10, cell_size*number_of_cells+10), 5)
 	game.draw()
-	title_surface = title_font.render("Retro Snake", True, DARK_GREEN)
-	score_surface = score_font.render(str(game.score), True, DARK_GREEN)
+	title_surface = title_font.render("Green Snake", True, BLACK)
+	score_surface = score_font.render(str(game.score), True, BLACK)
 	screen.blit(title_surface, (OFFSET-5, 20))
 	screen.blit(score_surface, (OFFSET-5, OFFSET + cell_size*number_of_cells +10))
 
