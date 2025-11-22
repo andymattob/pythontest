@@ -1,6 +1,6 @@
 import pygame, sys
 from Button import Button
-from games. Breakout import BreakoutGame
+from games. breakout import BreakoutGame
 from games. tictactoe import run_Game, TicTacToeGame
 
 pygame.init()
