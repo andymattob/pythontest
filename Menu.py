@@ -2,6 +2,8 @@ import pygame, sys
 from Button import Button
 from games. breakout import BreakoutGame
 from games. tictactoe import run_Game, TicTacToeGame
+import tkinter as tk
+from games.memorygame import MemoryGame
 
 pygame.init()
 
@@ -31,10 +33,9 @@ def tictactoe_game():
     
     pygame.quit()
 
-def snake_game():
+def memory_game():
     pygame.init()
     
-   
     
     pygame.quit()
     
@@ -51,14 +52,14 @@ def main_menu():
                             text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         TICTACTOE_BUTTON = Button(image=pygame.image.load("assets/start_tictactoe_button.png"), pos=(350, 250), 
                             text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-        SNAKE_BUTTON = Button(image=pygame.image.load("assets/start_tetris_button.png"), pos=(560, 250), 
+        MEMORY_BUTTON = Button(image=pygame.image.load("assets/start_tetris_button.png"), pos=(560, 250), 
                             text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
         QUIT_BUTTON = Button(image=pygame.image.load("assets/exit_button.png"), pos=(440, 550), 
                             text_input="", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 
-        for button in [BREAKOUT_BUTTON, TICTACTOE_BUTTON, SNAKE_BUTTON, QUIT_BUTTON]:
+        for button in [BREAKOUT_BUTTON, TICTACTOE_BUTTON, MEMORY_BUTTON, QUIT_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(SCREEN)
         
@@ -71,8 +72,8 @@ def main_menu():
                     breakout_game()
                 if TICTACTOE_BUTTON.checkForInput(MENU_MOUSE_POS):
                     tictactoe_game()
-                if SNAKE_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    snake_game()
+                if MEMORY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    memory_game()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
                     sys.exit()

@@ -167,4 +167,5 @@ if __name__ == "__main__":
     root = tk.Tk()
     game = MemoryGame(root)
     root.mainloop()
+    from Menu import main_menu
 
