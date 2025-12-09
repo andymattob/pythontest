@@ -17,10 +17,16 @@ class MemoryGame:
         self.matches = 0
         self.pulse_states = {}
 
+        # Puls-hastighet (lägre = snabbare blink)
+        self.pulse_speed = 150  # ms
+
+        # Basväg till bilder
+        self.base_path = os.path.dirname(os.path.abspath(__file__))
+
         # -----------------------------
         # Fönsterikon
         # -----------------------------
-        icon_path = "mcmemimg/icon.png"  # byt till din ikon
+        icon_path = os.path.join(self.base_path, "mcmemimg", "icon.png")
         icon_img = Image.open(icon_path)
         self.icon_photo = ImageTk.PhotoImage(icon_img)
         self.root.iconphoto(True, self.icon_photo)
@@ -44,13 +50,15 @@ class MemoryGame:
     # -----------------------------------------
     def load_images(self):
         self.images = []
-        for i in range(1, 9):  # img-1.png - img-8.png
-            img_path = f"mcmemimg/img-{i}.png"
+        for i in range(1, 9):
+            img_path = os.path.join(self.base_path, "mcmemimg", f"img-{i}.png")
             resized_img = self.safe_resize(img_path)
             self.images.append(resized_img)
             self.images.append(resized_img)
 
-        self.cover_image = self.safe_resize("mcmemimg/back.png")
+        back_path = os.path.join(self.base_path, "mcmemimg", "back.png")
+        self.cover_image = self.safe_resize(back_path)
+
         random.shuffle(self.images)
 
     # -----------------------------------------
@@ -106,7 +114,6 @@ class MemoryGame:
         btn2 = self.buttons[r2][c2].winfo_children()[0]
 
         if self.images[self.first_choice] == self.images[self.second_choice]: # type: ignore
-            # MATCH – färgglad ram
             self.start_pulse(self.buttons[r1][c1])
             self.start_pulse(self.buttons[r2][c2])
 
@@ -126,16 +133,22 @@ class MemoryGame:
     # -----------------------------------------
     # Pulserande ram på match
     # -----------------------------------------
-    def start_pulse(self, frame):
+    def start_pulse(self, frame, duration=1000):
         self.pulse_states[frame] = True
         self.pulse(frame, True)
+        self.root.after(duration, lambda: self.stop_pulse(frame))
 
     def pulse(self, frame, state):
         if frame not in self.pulse_states:
             return
 
         frame.config(highlightbackground="lime" if state else "green")
-        self.root.after(200, lambda: self.pulse(frame, not state))
+        self.root.after(self.pulse_speed, lambda: self.pulse(frame, not state))
+
+    def stop_pulse(self, frame):
+        if frame in self.pulse_states:
+            del self.pulse_states[frame]
+        frame.config(highlightbackground="black")
 
     # -----------------------------------------
     # You Win-skärm
@@ -146,17 +159,17 @@ class MemoryGame:
         win.geometry("600x400")
         win.resizable(False, False)
 
-        bg_photo = self.safe_resize("mcmemimg/you_win.jpg", (600, 400))
+        win_img = os.path.join(self.base_path, "mcmemimg", "you_win.jpg")
+        bg_photo = self.safe_resize(win_img, (600, 400))
+
         bg_label = Label(win, image=bg_photo)
         bg_label.image = bg_photo # type: ignore
         bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-        text = Label(win, text="🎉 Du  Vann! 🎉", font=("Arial", 40, "bold"),
-                     fg="yellow", bg="black")
+        text = Label(win, text="🎉 Du  Vann! 🎉", font=("Arial", 40, "bold"), fg="yellow", bg="black")
         text.place(relx=0.5, rely=0.5, anchor="center")
 
-        btn_close = tk.Button(win, text="Stäng Spelet", font=("Arial", 14),
-                              command=self.root.destroy)
+        btn_close = tk.Button(win, text="Stäng Spelet", font=("Arial", 14), command=self.root.destroy)
         btn_close.place(relx=0.5, rely=0.8, anchor="center")
 
 
@@ -167,5 +180,3 @@ if __name__ == "__main__":
     root = tk.Tk()
     game = MemoryGame(root)
     root.mainloop()
-   
-
